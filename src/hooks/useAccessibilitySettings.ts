@@ -68,7 +68,8 @@ export function useAccessibilitySettings({
     if (!wrapper) {
       wrapper = document.createElement('div');
       wrapper.id = WRAPPER_ID;
-      wrapper.style.minHeight = '100%';
+      wrapper.style.minHeight = '100vh';
+      wrapper.style.background = 'inherit';
 
       // Move all body children except portal and wrapper into wrapper
       const children = Array.from(body.children);
