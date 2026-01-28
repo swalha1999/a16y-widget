@@ -33,7 +33,6 @@ export const AccessibilityWidget: React.FC<AccessibilityWidgetProps> = ({
   buttonAriaLabel,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isAnimating, setIsAnimating] = useState(false);
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
   const [buttonHovered, setButtonHovered] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -59,16 +58,11 @@ export const AccessibilityWidget: React.FC<AccessibilityWidgetProps> = ({
 
   // Handle open/close with animation
   const handleOpen = () => {
-    setIsAnimating(true);
     setIsOpen(true);
   };
 
   const handleClose = () => {
-    setIsAnimating(true);
-    setTimeout(() => {
-      setIsOpen(false);
-      setIsAnimating(false);
-    }, 200);
+    setIsOpen(false);
   };
 
   // Handle escape key to close panel
@@ -211,7 +205,7 @@ export const AccessibilityWidget: React.FC<AccessibilityWidgetProps> = ({
     backdropFilter: 'blur(4px)',
     WebkitBackdropFilter: 'blur(4px)',
     zIndex: zIndex - 1,
-    opacity: isOpen && !isAnimating ? 1 : 0,
+    opacity: isOpen ? 1 : 0,
     transition: 'opacity 0.3s ease',
     ...styles.overlay,
   };
@@ -228,8 +222,8 @@ export const AccessibilityWidget: React.FC<AccessibilityWidgetProps> = ({
     zIndex,
     overflow: 'hidden',
     direction: dir,
-    opacity: isOpen && !isAnimating ? 1 : 0,
-    transform: isOpen && !isAnimating ? 'translateY(0) scale(1)' : 'translateY(20px) scale(0.95)',
+    opacity: isOpen ? 1 : 0,
+    transform: isOpen ? 'translateY(0) scale(1)' : 'translateY(20px) scale(0.95)',
     transition: 'all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)',
     border: '1px solid rgba(255, 255, 255, 0.8)',
     ...styles.panel,
